@@ -1,0 +1,29 @@
+{%extends 'partials/base.html'%}
+{%block title%}User profile{%endblock%}
+
+
+{%block content%}
+
+
+
+<div>
+    <h1>User Profile</h1>
+    <h2>Personal Details</h2>
+    <p><strong>Full Name:</strong> {{ raffle_entry.full_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone Number:</strong> {{ raffle_entry.phone_number }}</p>
+    <p><strong>Date of Birth:</strong> {{ raffle_entry.date_of_birth }}</p>
+    <p><strong>State of Origin:</strong> {{ raffle_entry.state_of_origin }}</p>
+    <p><strong>Country:</strong> {{ raffle_entry.country }}</p>
+    <p><strong>City:</strong> {{ raffle_entry.city }}</p>
+
+    <h2>Referral Details</h2>
+    {% if user_profile %}
+    <p><strong>Referral Code:</strong> {{ user_profile.referral_code }}</p>
+    <p><strong>Referred By:</strong> {{ user_profile.referred_by }}</p>
+    <p><strong>Referral Count:</strong> {{ user_profile.referral_count }}</p>
+    {% else %}
+    <p>No referral details available.</p>
+    {% endif %}
+</div>
+{%endblock content%}

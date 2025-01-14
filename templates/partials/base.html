@@ -1,0 +1,224 @@
+<!doctype html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{%block title%}{%endblock%} | TravelWin Tourism and vacations for senior citizens</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="icon" type="icon/png" href="{% static 'media/TravelsLogo.svg' %}" style="width: 42px;">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" -->
+    <!-- integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+</head>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .logo {
+        font-family: 'Pacifico', sans-serif;
+    }
+
+    .text {
+        color: #8B6400;
+    }
+
+    body {
+        /* min-height: 100vh; */
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f8f9fa;
+        /* Light background color */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+    }
+
+    /* Initial hidden state for content */
+    #content {
+        transition: opacity 1s ease-in-out;
+    }
+
+    /* Animation for the loading image */
+    #loading-image {
+        width: 80px;
+        /* Starting size */
+        animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    /* Keyframes for pulsing effect (scale + fade) */
+    @keyframes pulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.3);
+            opacity: 0.8;
+        }
+    }
+</style>
+
+<!-- <div class="flex-col my-4" id="loading-screen">
+    <img src="{%static 'media/TravelsLogo.svg'%}" alt="Loading..." id="loading-image">
+    <div class="text-center h4 text" style="font-family: 'Poppins', sans-serif;">TravelWin</div>
+</div>
+ -->
+
+ <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+ <!-- Include your custom JavaScript if necessary -->
+ {% if messages %}
+ {% for message in messages %}
+
+ <script>
+     document.addEventListener("DOMContentLoaded", function () {
+
+         Toastify({
+             text: "{{ message }}",
+             duration: 3500, // Display duration
+             close: true, // Show close button
+             gravity: "top", // `top` or `bottom`
+             position: "center", // `left`, `center` or `right`
+             style: {
+                 background: "#F8CA0A", // Custom background color
+                 // background-image: linear-gradient(to right, #434343 0%, black 100%);
+                 color: "#8B6400", // Custom text color
+                 // width: "250px", // Custom width
+                 // height: "100px", // Custom height
+                 borderRadius: "15px", // Custom border radius
+                 fontSize: "18px", // Custom font size
+                 padding: "10px 25px" // Custom padding
+             }
+         }).showToast();
+
+     });
+
+
+
+ </script>
+ {% endfor %}
+
+ {% endif %}
+<body id="content">
+    <nav>
+        <div class="navbar bg-base-100 sticky top-0 z-50">
+            <div class="flex-1">
+                <img src="{%static 'media/TravelsLogo.svg'%}" class="w-12 h-12" alt="">
+                <a href="/" class="btn btn-ghost text-xl logo">TravelWin</a>
+            </div>
+            <div class="flex-none">
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                            </svg>
+
+                            <span class="badge badge-sm indicator-item">8</span>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
+                        <div class="card-body">
+                            <span class="text-lg font-bold">8 Items</span>
+                            <span class="text-info">Subtotal: $999</span>
+                            <div class="card-actions">
+                                <button class="btn btn-primary btn-block">View cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle flex justify-center items-center">
+                        <div class="w-10 h-10 flex justify-center items-center rounded-full ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+                              </svg>
+                              
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        {%if request.user.is_authenticated%}
+                        <li>
+                            <a href="{%url 'userauths:user_profile'%}" class="justify-between">
+                                Profile
+                                <span class="badge">New</span>
+                            </a>
+                        </li>
+                        {%endif%}
+                        <li><a>Settings</a></li>
+                        {%if request.user.is_authenticated%}
+                        <li><a href="{%url 'userauths:logout'%}" class="text-error font-normal flex items-center">Logout <span class="flex items-center"><i class='bx bx-log-in-circle'></i></span></a></li>
+                        {%else%}
+                        <li><a href="{%url 'userauths:splash'%}" class="btn btn-sm btn-block">Register</a></li>
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="space-y-3">
+        {%block content%}{%endblock%}
+    </div>
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const content = document.getElementById('content');
+
+            // Simulate loading delay for demonstration (you can remove this in production)
+            setTimeout(() => {
+                // Fade out the loading screen
+                loadingScreen.style.opacity = '0';
+
+                // Wait for the transition to complete before hiding the element
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    // Fade in the content
+                    content.style.opacity = '1';
+                }, 500); // Matches the CSS transition duration
+            }, 2000); // Simulated loading time
+        });
+
+    </script> -->
+
+    
+    <script>
+        AOS.init();
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+{%extends 'partials/base.html'%}
+{%block title%}Leaderboard{%endblock%}
+
+
+{%block content%}
+<div class="bg-white rounded-3xl p-6 min-w-[320px]">
+    <!-- Header -->
+    <div class="flex items-center mb-6">
+        <button class="text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <h1 class="text-center flex-1 text-gray-800 font-medium">Leaderboard</h1>
+    </div>
+
+    <!-- Tabs -->
+    <p>Your referral link:
+        <a href="">
+            {{ request.build_absolute_uri }}referral/{{ request.user.userprofile.referral_code }}
+        </a>
+    </p>
+
+
+
+
+    <body>
+        <h1>Top Referrers</h1>
+        <ul>
+            {% for profile in top_referrers %}
+            <li>{{ profile.user.username }} - {{ profile.referral_count }} referrals</li>
+            {% endfor %}
+        </ul>
+    </body>
+
+
+    <!-- Leaderboard List -->
+    <div class="space-y-4">
+        <!-- Top 3 Winners -->
+        <div class="flex justify-between items-center mb-8">
+            <!-- Second Place -->
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
+                        alt="Second place" class="w-full h-full object-cover" />
+                </div>
+                <span class="text-sm mt-1">Gary</span>
+                <span class="text-xs text-gray-400">2511 ★</span>
+            </div>
+            <!-- First Place -->
+            <div class="flex flex-col items-center -mt-4">
+                <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-yellow-400">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
+                        alt="First place" class="w-full h-full object-cover" />
+                </div>
+                <span class="text-sm mt-1">Timopop</span>
+                <span class="text-xs text-gray-400">1314 ★</span>
+            </div>
+            <!-- Third Place -->
+            <div class="flex flex-col items-center">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
+                        alt="Third place" class="w-full h-full object-cover" />
+                </div>
+                <span class="text-sm mt-1">SSY</span>
+                <span class="text-xs text-gray-400">1067 ★</span>
+            </div>
+        </div>
+
+        <!-- Rest of Rankings -->
+        <div class="space-y-4">
+            <!-- Ranking Item Template -->
+            <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-gray-400">4</span>
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
+                    alt="User" class="w-8 h-8 rounded-full" />
+                <span class="flex-1">Joey Lui</span>
+                <span class="text-gray-400">1012 points</span>
+            </div>
+            <!-- More ranking items... -->
+            <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-gray-400">24</span>
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                    <span class="text-xs">You</span>
+                </div>
+                <span class="flex-1">Your current rank</span>
+                <span class="text-gray-400">221 points</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock content%}
