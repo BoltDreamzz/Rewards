@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import RaffleEntry, Testimonial
+from .models import RaffleEntry, Testimonial, PaymentType
 from django.http import HttpResponse
 from django.contrib import messages
 
@@ -54,23 +54,24 @@ def handle_referral(request, code):
             Referral.objects.create(referrer=referrer_profile.user, referred=request.user)
 
             # Increment the referrer's referral count
-            if referrer_profile.referral_count >= 5:
-                messages.success(request, 'Maximum referrals gained')
-                return redirect('travels:index') 
-            
             referrer_profile.referral_count += 1
             referrer_profile.save()
 
+            messages.success(request, 'Referral successful!')
+
     return redirect('travels:index')  # Redirect to the home page or another page.
+
 
 @login_required
 def leaderboard(request):
     messages.success(request, 'Leaderboard')
     top_referrers = UserProfile.objects.order_by('-referral_count')[:5]
     testimonials = Testimonial.objects.all()
+    payment_types = PaymentType.objects.all()
     return render(request, 'travels/leaderboard.html', {
         'top_referrers': top_referrers,
         'testimonials': testimonials,
+        'payment_types': payment_types,
         })
 
 @login_required
@@ -83,3 +84,25 @@ def user_entries(request):
         'entries': entries,
         'count': count,
         })
+    
+    
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import PaymentType
+from .forms import PaymentTypeForm
+
+# Form View
+def payment_type_form(request):
+    if request.method == 'POST':
+        form = PaymentTypeForm(request.POST)
+        if form.is_valid():
+            payment_type_name = form.cleaned_data['name']
+            payment_type = get_object_or_404(PaymentType, name=payment_type_name)
+            return redirect('travels:payment_detail', pk=payment_type.pk)
+    else:
+        form = PaymentTypeForm()
+    return render(request, 'travels/payment_type_form.html', {'form': form})
+
+# Detail View
+def payment_detail(request, pk):
+    payment_type = get_object_or_404(PaymentType, pk=pk)
+    return render(request, 'travels/payment_detail.html', {'payment_type': payment_type})

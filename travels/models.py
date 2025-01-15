@@ -42,3 +42,16 @@ class Testimonial(models.Model):
     
     def __str__(self):
         return f"{self.full_name} testified, age {self.age}"
+    
+from django.db import models
+
+class PaymentType(models.Model):
+    logo = models.ImageField(upload_to='payment_logos/')
+    name = models.CharField(max_length=100)
+    instructions = models.TextField()
+    link= models.CharField(blank=True, max_length=255, null=True)
+    color = models.CharField(max_length=100, default='warning', null=True)
+    
+
+    def __str__(self):
+        return self.name

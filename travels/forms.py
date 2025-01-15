@@ -33,3 +33,13 @@ class RaffleDrawForm(forms.Form):
             if age < 55:
                 raise ValidationError("You must be 55 years old or above and retired to participate.")
         return dob
+
+
+
+from django import forms
+from .models import PaymentType
+
+class PaymentTypeForm(forms.ModelForm):
+    class Meta:
+        model = PaymentType
+        fields = ['name']

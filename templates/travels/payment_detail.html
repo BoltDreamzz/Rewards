@@ -1,0 +1,15 @@
+{%extends 'partials/base.html'%}
+{%block title%}Payment Detail{%endblock%}
+
+
+{%block content%}
+
+
+<body>
+    <h1>{{ payment_type.name }}</h1>
+    <img src="{{ payment_type.logo.url }}" alt="{{ payment_type.name }} Logo">
+    <p><strong>Instructions:</strong> {{ payment_type.instructions }}</p>
+    <p><strong>Additional Information:</strong> {{ payment_type.additional_info }}</p>
+</body>
+
+{%endblock content%}
