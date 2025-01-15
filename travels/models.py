@@ -3,7 +3,7 @@ from django.db import models
 
 class RaffleEntry(models.Model):
     full_name = models.CharField(max_length=255)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15)
     state_of_origin = models.CharField(max_length=255, blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
@@ -33,3 +33,12 @@ class Referral(models.Model):
 
     def __str__(self):
         return f"{self.referrer.username} referred {self.referred.username}"
+
+class Testimonial(models.Model):
+    full_name = models.CharField(max_length=255)
+    content = models.TextField()
+    age = models.PositiveIntegerField(default=55)
+    company = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return f"{self.full_name} testified, age {self.age}"

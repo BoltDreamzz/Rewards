@@ -3,36 +3,130 @@
 
 
 {%block content%}
+<style>
+    /* From Uiverse.io by alexruix */
+    .card {
+        width: 190px;
+        height: 254px;
+        border-radius: 20px;
+        background: #f5f5f5;
+        position: relative;
+        padding: 0.8rem;
+        border: 2px solid #c3c6ce;
+        transition: 0.5s ease-out;
+        overflow: visible;
+    }
+
+    .card-details {
+        color: black;
+        height: 100%;
+        gap: .5em;
+        display: grid;
+        place-content: center;
+    }
+
+    .card-button {
+        transform: translate(-50%, 125%);
+        width: 60%;
+        border-radius: 1rem;
+        border: none;
+        background-color: #008bf8;
+        color: #fff;
+        font-size: 1rem;
+        padding: .5rem 1rem;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        opacity: 0;
+        transition: 0.3s ease-out;
+    }
+
+    .text-body {
+        color: rgb(134, 134, 134);
+    }
+
+    /*Text*/
+    .text-title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    /*Hover*/
+    .card:hover {
+        border-color: #008bf8;
+        box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .card:hover .card-button {
+        transform: translate(-50%, 50%);
+        opacity: 1;
+    }
+
+    .card-container {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 1rem;
+    }
+
+    .card-container::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .card-container::-webkit-scrollbar-thumb {
+        background-color: #008bf8;
+        border-radius: 10px;
+    }
+
+    .card-container::-webkit-scrollbar-track {
+        background: #f5f5f5;
+    }
+
+    /* @media (max-width: 768px) {
+        .card {
+            width: 180px;
+            height: 280px;
+        }
+    } */
+</style>
+
+
 <div class="bg-white rounded-3xl p-6 min-w-[320px]">
     <!-- Header -->
-    <div class="flex items-center mb-6">
+    <!-- <div class="flex items-center mb-6">
         <button class="text-gray-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-center flex-1 text-gray-800 font-medium">Leaderboard</h1>
-    </div>
+        <div class="flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="188" height="39" viewBox="0 0 188 39">
+                <text id="Leaderboard" transform="translate(94 29)" fill="#8b6400" font-size="28"
+                    font-family="Poppins-ExtraBold, Poppins" font-weight="800">
+                    <tspan x="-93.142" y="0">Leaderboard</tspan>
+                </text>
+            </svg>
+        </div>
+        
 
+    </div> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="146" height="29" viewBox="0 0 146 29">
+        <text id="Top_Referrers" data-name="Top Referrers" transform="translate(73 22)" fill="#8b6400" font-size="21"
+            font-family="Poppins-ExtraBold, Poppins" font-weight="800">
+            <tspan x="-72.471" y="0">Top Referrers</tspan>
+        </text>
+    </svg>
+    <br>
     <!-- Tabs -->
-    <p>Your referral link:
+    <!-- <p>Your referral link:
         <a href="">
             {{ request.build_absolute_uri }}referral/{{ request.user.userprofile.referral_code }}
         </a>
-    </p>
+    </p> -->
 
-
-
-
-    <body>
-        <h1>Top Referrers</h1>
-        <ul>
-            {% for profile in top_referrers %}
-            <li>{{ profile.user.username }} - {{ profile.referral_count }} referrals</li>
-            {% endfor %}
-        </ul>
-    </body>
+   
 
 
     <!-- Leaderboard List -->
@@ -46,7 +140,7 @@
                         alt="Second place" class="w-full h-full object-cover" />
                 </div>
                 <span class="text-sm mt-1">Gary</span>
-                <span class="text-xs text-gray-400">2511 ★</span>
+                <span class="text-xs text-gray-400">8890 ★</span>
             </div>
             <!-- First Place -->
             <div class="flex flex-col items-center -mt-4">
@@ -55,7 +149,7 @@
                         alt="First place" class="w-full h-full object-cover" />
                 </div>
                 <span class="text-sm mt-1">Timopop</span>
-                <span class="text-xs text-gray-400">1314 ★</span>
+                <span class="text-xs text-gray-400">11,056 ★</span>
             </div>
             <!-- Third Place -->
             <div class="flex flex-col items-center">
@@ -63,31 +157,136 @@
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
                         alt="Third place" class="w-full h-full object-cover" />
                 </div>
-                <span class="text-sm mt-1">SSY</span>
-                <span class="text-xs text-gray-400">1067 ★</span>
+                <span class="text-sm mt-1">HardDad</span>
+                <span class="text-xs text-gray-400">6600 ★</span>
             </div>
         </div>
 
         <!-- Rest of Rankings -->
-        <div class="space-y-4">
+        <div class="space-y-4 my-4">
             <!-- Ranking Item Template -->
+            {% for profile in top_referrers %}
             <div class="flex items-center gap-3">
-                <span class="w-6 text-center text-gray-400">4</span>
+                <span class="w-6 text-center text-gray-400">{{ profile.referral_count }}</span>
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
                     alt="User" class="w-8 h-8 rounded-full" />
-                <span class="flex-1">Joey Lui</span>
-                <span class="text-gray-400">1012 points</span>
+                <span class="flex-1">{{ profile.user.username }}</span>
+                <span class="text-gray-400">{{ profile.referral_count }}012 points</span>
+            </div>
+            {% endfor %}
+            <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-gray-400">4</span>
+                <div class="w-8 h-8 rounded-full bg-yellow-200 flex items-center justify-center">
+                    <span class="text-xs">DF</span>
+                </div>
+                <span class="flex-1">Derek Fisher</span>
+                <span class="text-gray-400">4400 points</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-blue-400">5</span>
+                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                    <span class="text-xs">SP</span>
+                </div>
+                <span class="flex-1">Sandra Parker</span>
+                <span class="text-gray-400">2200 points</span>
             </div>
             <!-- More ranking items... -->
             <div class="flex items-center gap-3">
-                <span class="w-6 text-center text-gray-400">24</span>
+                <span class="w-6 text-center text-gray-400">6</span>
                 <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                    <span class="text-xs">You</span>
+                    <span class="text-xs">VS</span>
                 </div>
-                <span class="flex-1">Your current rank</span>
-                <span class="text-gray-400">221 points</span>
+                <span class="flex-1">Victoria Stephanie</span>
+                <span class="text-gray-400">1024 points</span>
             </div>
         </div>
+        <br>
+        <div class="max-w-full mx-auto">
+            <div class="flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="144" height="29" viewBox="0 0 144 29">
+                    <text id="Testimonials" transform="translate(72 22)" fill="#8b6400" font-size="21" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="-71.085" y="0">Testimonials</tspan></text>
+                  </svg>
+                  
+            </div>
+            <br>
+            <!-- <h1 class="text-3xl font-bold mb-6 text-center">Customer Testimonials</h1> -->
+    
+            <!-- Scrollable container -->
+            <div class="flex overflow-x-auto space-x-4 pb-8 px-4">
+                {%for t in testimonials%}
+                <!-- Testimonial 1 -->
+                <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <!-- <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4"> -->
+                        <div>
+                            <h3 class="font-semibold">{{t.full_name}} . {{t.age}} years old</h3>
+                            <p class="text-gray-600 text-sm">Retired CEO, {{t.company}}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"This product has revolutionized our workflow. Highly recommended!"</p>
+                </div>
+                
+                {%endfor%}
+    
+                <!-- Testimonial 2 -->
+                <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <!-- <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4"> -->
+                        <div>
+                            <h3 class="font-semibold">Jane Smith . 68 years old</h3>
+                            <p class="text-gray-600 text-sm">Designer, CreativeCo</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The user interface is intuitive and beautiful. A joy to use every day!"</p>
+                </div>
+    
+                <!-- Testimonial 3 -->
+                <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4">
+                        <div>
+                            <h3 class="font-semibold">Mike Johnson</h3>
+                            <p class="text-gray-600 text-sm">Developer, CodeNinja</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The API documentation is top-notch. Integration was a breeze!"</p>
+                </div>
+    
+                <!-- Testimonial 4 -->
+                <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4">
+                        <div>
+                            <h3 class="font-semibold">Emily Brown</h3>
+                            <p class="text-gray-600 text-sm">Marketing Manager, GrowthHub</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Our conversion rates have skyrocketed since implementing this solution!"</p>
+                </div>
+    
+                <!-- Testimonial 5 -->
+                <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4">
+                        <div>
+                            <h3 class="font-semibold">Alex Lee</h3>
+                            <p class="text-gray-600 text-sm">Startup Founder, InnovateTech</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"This product has been a game-changer for our startup. Couldn't be happier!"
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="216" height="29" viewBox="0 0 216 29">
+                <text id="Collect_your_reward" data-name="Collect your reward" transform="translate(108 22)" fill="#8b6400" font-size="21" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="-107.257" y="0">Collect your reward</tspan></text>
+              </svg>
+              
+        </div>
+    
+    
     </div>
 </div>
 

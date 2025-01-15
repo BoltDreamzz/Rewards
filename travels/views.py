@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import RaffleEntry
+from .models import RaffleEntry, Testimonial
 from django.http import HttpResponse
 from django.contrib import messages
 
@@ -67,7 +67,11 @@ def handle_referral(request, code):
 def leaderboard(request):
     messages.success(request, 'Leaderboard')
     top_referrers = UserProfile.objects.order_by('-referral_count')[:5]
-    return render(request, 'travels/leaderboard.html', {'top_referrers': top_referrers})
+    testimonials = Testimonial.objects.all()
+    return render(request, 'travels/leaderboard.html', {
+        'top_referrers': top_referrers,
+        'testimonials': testimonials,
+        })
 
 @login_required
 def user_entries(request):
