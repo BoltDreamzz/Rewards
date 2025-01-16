@@ -136,7 +136,7 @@
                 <a href="/" class="btn btn-ghost text-xl logo">TravelWin</a>
             </div>
             <div class="flex-none">
-                <div class="dropdown dropdown-end">
+                <a href="{%url 'travels:leaderboard'%}" class="">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
                         <div class="indicator">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -148,16 +148,8 @@
                             <span class="badge badge-sm indicator-item">8</span>
                         </div>
                     </div>
-                    <div tabindex="0" class="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
-                        <div class="card-body">
-                            <span class="text-lg font-bold">8 Items</span>
-                            <span class="text-info">Subtotal: $999</span>
-                            <div class="card-actions">
-                                <button class="btn btn-primary btn-block">View cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    
+                </a>
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle flex justify-center items-center">
                         <div class="w-10 h-10 flex justify-center items-center rounded-full ">
@@ -176,8 +168,14 @@
                                 <span class="badge">New</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{%url 'travels:leaderboard'%}" class="justify-between">
+                                Leaderboard
+                                <span class="badge">9+</span>
+                            </a>
+                        </li>
                         {%endif%}
-                        <li><a>Settings</a></li>
+                        <!-- <li><a>Settings</a></li> -->
                         {%if request.user.is_authenticated%}
                         <li><a href="{%url 'userauths:logout'%}" class="text-error font-normal flex items-center">Logout <span class="flex items-center"><i class='bx bx-log-in-circle'></i></span></a></li>
                         {%else%}

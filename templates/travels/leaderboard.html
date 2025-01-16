@@ -121,15 +121,15 @@
     </svg>
     <br>
     <!-- Tabs -->
-    <p>Your referral link:
+    <!-- <p class="none">Your referral link:
         {% if user.userprofile.referral_code %}
             <a href="{% url 'travels:handle_referral' user.userprofile.referral_code %}">Share your referral link</a>
         {% else %}
             Referral code not available.
         {% endif %}
-    </p>
+    </p> -->
 
-   
+
 
 
     <!-- Leaderboard List -->
@@ -139,8 +139,7 @@
             <!-- Second Place -->
             <div class="flex flex-col items-center">
                 <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
-                        alt="Second place" class="w-full h-full object-cover" />
+                    <img src="{%static 'media/h1.jpg'%}" alt="Second place" class="w-full h-full object-cover" />
                 </div>
                 <span class="text-sm mt-1">Gary</span>
                 <span class="text-xs text-gray-400">8890 ★</span>
@@ -148,8 +147,7 @@
             <!-- First Place -->
             <div class="flex flex-col items-center -mt-4">
                 <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-yellow-400">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
-                        alt="First place" class="w-full h-full object-cover" />
+                    <img src="{%static 'media/h2.jpg'%}" alt="First place" class="w-full h-full object-cover" />
                 </div>
                 <span class="text-sm mt-1">Timopop</span>
                 <span class="text-xs text-gray-400">11,056 ★</span>
@@ -157,8 +155,7 @@
             <!-- Third Place -->
             <div class="flex flex-col items-center">
                 <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
-                        alt="Third place" class="w-full h-full object-cover" />
+                    <img src="{%static 'media/3.jpg'%}" alt="Third place" class="w-full h-full object-cover" />
                 </div>
                 <span class="text-sm mt-1">HardDad</span>
                 <span class="text-xs text-gray-400">6600 ★</span>
@@ -170,11 +167,11 @@
             <!-- Ranking Item Template -->
             {% for profile in top_referrers %}
             <div class="flex items-center gap-3">
-                <span class="w-6 text-center text-gray-400">{{ profile.referral_count }}</span>
+                <span class="w-6 text-center text-gray-400">{{ profile.referral_count|default:2 }}</span>
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/0032.jpg-9gpXykRAQDs6Zg1NYUS3I9vxVGK1Dy.jpeg"
                     alt="User" class="w-8 h-8 rounded-full" />
                 <span class="flex-1">{{ profile.user.username }}</span>
-                <span class="text-gray-400">{{ profile.referral_count }}012 points</span>
+                <span class="text-gray-400">{{ profile.referral_count|default:2 }}012 points</span>
             </div>
             {% endfor %}
             <div class="flex items-center gap-3">
@@ -207,13 +204,16 @@
         <div class="max-w-full mx-auto">
             <div class="flex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="144" height="29" viewBox="0 0 144 29">
-                    <text id="Testimonials" transform="translate(72 22)" fill="#8b6400" font-size="21" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="-71.085" y="0">Testimonials</tspan></text>
-                  </svg>
-                  
+                    <text id="Testimonials" transform="translate(72 22)" fill="#8b6400" font-size="21"
+                        font-family="Poppins-ExtraBold, Poppins" font-weight="800">
+                        <tspan x="-71.085" y="0">Testimonials</tspan>
+                    </text>
+                </svg>
+
             </div>
             <br>
             <!-- <h1 class="text-3xl font-bold mb-6 text-center">Customer Testimonials</h1> -->
-    
+
             <!-- Scrollable container -->
             <div class="flex overflow-x-auto space-x-4 pb-8 px-4">
                 {%for t in testimonials%}
@@ -228,9 +228,9 @@
                     </div>
                     <p class="text-gray-700">"This product has revolutionized our workflow. Highly recommended!"</p>
                 </div>
-                
+
                 {%endfor%}
-    
+
                 <!-- Testimonial 2 -->
                 <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-4">
@@ -240,13 +240,14 @@
                             <p class="text-gray-600 text-sm">Designer, CreativeCo</p>
                         </div>
                     </div>
-                    <p class="text-gray-700">"The user interface is intuitive and beautiful. A joy to use every day!"</p>
+                    <p class="text-gray-700">"The user interface is intuitive and beautiful. A joy to use every day!"
+                    </p>
                 </div>
-    
+
                 <!-- Testimonial 3 -->
                 <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-4">
-                        <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4">
+                        <!-- <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4"> -->
                         <div>
                             <h3 class="font-semibold">Mike Johnson</h3>
                             <p class="text-gray-600 text-sm">Developer, CodeNinja</p>
@@ -254,29 +255,31 @@
                     </div>
                     <p class="text-gray-700">"The API documentation is top-notch. Integration was a breeze!"</p>
                 </div>
-    
+
                 <!-- Testimonial 4 -->
                 <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-4">
-                        <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4">
+                        <!-- <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4"> -->
                         <div>
                             <h3 class="font-semibold">Emily Brown</h3>
                             <p class="text-gray-600 text-sm">Marketing Manager, GrowthHub</p>
                         </div>
                     </div>
-                    <p class="text-gray-700">"Our conversion rates have skyrocketed since implementing this solution!"</p>
+                    <p class="text-gray-700">"Our conversion rates have skyrocketed since implementing this solution!"
+                    </p>
                 </div>
-    
+
                 <!-- Testimonial 5 -->
                 <div class="flex-none w-80 bg-white rounded-lg shadow-md p-6">
                     <div class="flex items-center mb-4">
-                        <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4">
+                        <!-- <img src="/placeholder.svg?height=40&width=40" alt="Avatar" class="w-10 h-10 rounded-full mr-4"> -->
                         <div>
                             <h3 class="font-semibold">Alex Lee</h3>
                             <p class="text-gray-600 text-sm">Startup Founder, InnovateTech</p>
                         </div>
                     </div>
-                    <p class="text-gray-700">"This product has been a game-changer for our startup. Couldn't be happier!"
+                    <p class="text-gray-700">"This product has been a game-changer for our startup. Couldn't be
+                        happier!"
                     </p>
                 </div>
             </div>
@@ -285,62 +288,165 @@
         {%if user.is_authenticated%}
         <div class="flex flex-col">
             <svg xmlns="http://www.w3.org/2000/svg" width="216" height="29" viewBox="0 0 216 29">
-                <text id="Collect_your_reward" data-name="Collect your reward" transform="translate(108 22)" fill="#8b6400" font-size="21" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="-107.257" y="0">Collect your reward</tspan></text>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="294" height="29" viewBox="0 0 294 29">
-                <text id="Choose_a_payment_method" data-name="Choose a payment method" transform="translate(147 22)" fill="#8b6400" font-size="21" font-family="Poppins-Medium, Poppins" font-weight="500"><tspan x="-146.108" y="0">Choose a payment method</tspan></text>
-              </svg>
-              
-              
+                <text id="Collect_your_reward" data-name="Collect your reward" transform="translate(108 22)"
+                    fill="#8b6400" font-size="21" font-family="Poppins-ExtraBold, Poppins" font-weight="800">
+                    <tspan x="-107.257" y="0">Collect your reward</tspan>
+                </text>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="294" height="29" viewBox="0 0 294 29">
+                <text id="Choose_a_payment_method" data-name="Choose a payment method" transform="translate(147 22)"
+                    fill="#8b6400" font-size="21" font-family="Poppins-Medium, Poppins" font-weight="500">
+                    <tspan x="-146.108" y="0">Choose a payment method</tspan>
+                </text>
+            </svg>
+
+
         </div>
         <br>
         <div class="container">
+            
             <div role="tablist" class="tabs tabs-lifted">
                 <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Bybit" />
                 <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
                     <img src="{%static 'media/bybit.png'%}" class="w-10 mx-2" alt="">
                     <br>
-                    <div class="ms-2 p-2">
-                        <p>Create your free account with Bybit <a href="" class="text-warning">Create your free account here</a></p>
-                        <p>Verify your Bybit profile</p>
-                    </div>
+                    <ol class="ms-2 p-2 space-y-3">
+                        <li>
+                            <p class="flex gap-3">Download the free Bybit App and register <span> <a href="https://www.bybit.com/en/download/" target="_blank" class="text-primary flex gap-2">Bybit.com <svg
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                                    </svg>
+                                </a></span></p>
+                        </li>
+                        <li>
+                            <p class=" flex">Verify your account. <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-primary mx-2">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                              </p>
+                        </li>
+                        <li>
+                            <p>Send your USDT Wallet address for payments.</p>
+                        </li>
+                    </ol>
+                    <br>
+                    <ol>
+                        <li class="flex gap-2">Need help ? contact support <a href="#" class="text-success"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                          </svg>
+                          </a></li>
+                    </ol>
                 </div>
-              
-                <input
-                  type="radio"
-                  name="my_tabs_2"
-                  role="tab"
-                  class="tab"
-                  aria-label="Binance"
-                  checked="checked" />
+
+                <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Binance" checked="checked" />
                 <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
                     <img src="{%static 'media/bn.jpg'%}" class="w-14 mx-2" alt="">
                     <br>
-                    <div class="ms-2 p-2">
-                        <p>Create your free account with Binance <a href="" class="text-warning">Create your free account here</a></p>
-                        <p>Verify your Binance profile</p>
-                    </div>
+                    <ol class="ms-2 p-2 space-y-3">
+                        <li>
+                            <p class="flex gap-3">Download the free Binance App and register <span> <a href="https://www.binance.com/en-AU/download" target="_blank" class="text-primary flex gap-2">Binance.com <svg
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                                    </svg>
+                                </a></span></p>
+                        </li>
+                        <li>
+                            <p class=" flex">Verify your account. <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-primary mx-2">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                              </p>
+                        </li>
+                        <li>
+                            <p>Send your USDT Wallet address for payments.</p>
+                        </li>
+                    </ol>
+                    <br>
+                    <ol>
+                        <li class="flex gap-2">Need help ? contact support <a href="#" class="text-success"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                          </svg>
+                          </a></li>
+                    </ol>
                 </div>
-              
+
+                <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Trust" />
+                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                    <!-- <img src="{%static 'media/COINBASE.svg'%}" class="w-14 mx-2" alt=""> -->
+                     <h4 class="font-semi-bold">Trust Wallet</h4>
+                    <br>
+                    <ol class="ms-2 p-2 space-y-3">
+                        <li>
+                            <p class="flex gap-3">Download the free Trust wallet App and register <span> <a href="https://trustwallet.com/download" target="_blank" class="text-primary flex gap-2">Trustwallet.com <svg
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                                    </svg>
+                                </a></span></p>
+                        </li>
+                        <li>
+                            <p class=" flex">Verify your account. <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-primary mx-2">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                              </p>
+                        </li>
+                        <li>
+                            <p>Send your USDT Wallet address for payments.</p>
+                        </li>
+                    </ol>
+                    <br>
+                    <ol>
+                        <li class="flex gap-2">Need help ? contact support <a href="#" class="text-success"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                          </svg>
+                          </a></li>
+                    </ol>
+                </div>
                 <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Coinbase" />
                 <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
                     <img src="{%static 'media/COINBASE.svg'%}" class="w-14 mx-2" alt="">
                     <br>
-                    <div class="ms-2 p-2">
-                        <p>Create your free account with CoinBase <a href="" class="text-warning">Create your free account here</a></p>
-                        <p>Verify your coinbase profile</p>
-                    </div>
+                    <ol class="ms-2 p-2 space-y-3">
+                        <li>
+                            <p class="flex gap-3">Download the free Coinbase App and register <span> <a href="https://www.coinbase.com/en-gb/wallet/downloads" target="_blank" class="text-primary flex gap-2">Trustwallet.com <svg
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+                                    </svg>
+                                </a></span></p>
+                        </li>
+                        <li>
+                            <p class=" flex">Verify your account. <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-primary mx-2">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                              </p>
+                        </li>
+                        <li>
+                            <p>Send your USDT Wallet address for payments.</p>
+                        </li>
+                    </ol>
+                    <br>
+                    <ol>
+                        <li class="flex gap-2">Need help ? contact support <a href="#" class="text-success"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                          </svg>
+                          </a></li>
+                    </ol>
                 </div>
-              </div>
+            </div>
         </div>
         <br>
-        
+
 
         {%else%}
         <p class="text-center">Login to claim rewards.</p>
         {%endif%}
-    
-    
+
+
     </div>
 </div>
 

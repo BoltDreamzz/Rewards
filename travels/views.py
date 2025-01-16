@@ -65,7 +65,7 @@ def handle_referral(request, code):
 @login_required
 def leaderboard(request):
     messages.success(request, 'Leaderboard')
-    top_referrers = UserProfile.objects.order_by('-referral_count')[:5]
+    top_referrers = UserProfile.objects.order_by('-referral_count')
     testimonials = Testimonial.objects.all()
     payment_types = PaymentType.objects.all()
     return render(request, 'travels/leaderboard.html', {

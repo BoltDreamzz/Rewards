@@ -11,7 +11,7 @@ urlpatterns = [
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path('user_entries/', views.user_entries, name='user_entries'),
     path('success/', views.success, name='success'),
-     path('payment-form/', views.payment_type_form, name='payment_type_form'),
+    path('payment-form/', views.payment_type_form, name='payment_type_form'),
     path('payment/<int:pk>/', views.payment_detail, name='payment_detail'),
 
     
