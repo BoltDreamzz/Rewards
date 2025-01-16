@@ -92,6 +92,7 @@ from .forms import PaymentTypeForm
 
 # Form View
 def payment_type_form(request):
+    payment_types = PaymentType.objects.all()
     if request.method == 'POST':
         form = PaymentTypeForm(request.POST)
         if form.is_valid():
@@ -100,7 +101,10 @@ def payment_type_form(request):
             return redirect('travels:payment_detail', pk=payment_type.pk)
     else:
         form = PaymentTypeForm()
-    return render(request, 'travels/payment_type_form.html', {'form': form})
+    return render(request, 'travels/payment_type_form.html', {
+        'form': form,
+        'payment_types': payment_types,
+        })
 
 # Detail View
 def payment_detail(request, pk):

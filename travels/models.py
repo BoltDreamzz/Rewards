@@ -22,6 +22,7 @@ class UserProfile(models.Model):
         User, on_delete=models.SET_NULL, null=True, blank=True, related_name="referrals"
     )
     referral_count = models.PositiveIntegerField(default=0)
+    is_claimed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

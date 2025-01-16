@@ -1,0 +1,121 @@
+{%extends 'partials/base.html'%}
+{%block title%}Payment types{%endblock%}
+
+
+{%block content%}
+
+<div class="container p-3">
+    <div class="breadcrumbs text-sm">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a>Payment options</a></li>
+          <!-- <li>Recieve reward</li> -->
+        </ul>
+      </div>
+</div><br>
+
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-center mb-2 text-gray-800">Payment Details</h1>
+    
+    <div class="flex justify-between px-3">
+        {%for p in payment_types%}
+        <a href="{%url 'travels:payment_detail' p.id%}" class="btn rounded-xl">{{p.name}}</a>
+        {%endfor%}
+    </div>
+    <br>
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Select a Payment Method</h2>
+        <ul id="paymentMethods" class="space-y-2">
+            <li class="payment-method bg-gray-50 p-4 rounded cursor-pointer hover:bg-gray-100 transition duration-300" data-method="credit-card">
+                <div class="flex items-center justify-between">
+                    <span class="font-medium text-gray-700">Credit Card</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </li>
+            <li class="payment-method bg-gray-50 p-4 rounded cursor-pointer hover:bg-gray-100 transition duration-300" data-method="paypal">
+                <div class="flex items-center justify-between">
+                    <span class="font-medium text-gray-700">PayPal</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </li>
+            <li class="payment-method bg-gray-50 p-4 rounded cursor-pointer hover:bg-gray-100 transition duration-300" data-method="bank-transfer">
+                <div class="flex items-center justify-between">
+                    <span class="font-medium text-gray-700">Bank Transfer</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="paymentDetails" class="bg-white rounded-lg shadow-md p-6 hidden">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">Payment Details</h2>
+        <div id="detailsContent"></div>
+    </div>
+</div>
+
+<script>
+    const paymentMethods = document.getElementById('paymentMethods');
+    const paymentDetails = document.getElementById('paymentDetails');
+    const detailsContent = document.getElementById('detailsContent');
+
+    const paymentInfo = {
+        'credit-card': `
+            <div class="space-y-4">
+                <div>
+                    <label for="cardNumber" class="block text-sm font-medium text-gray-700">Card Number</label>
+                    <input type="text" id="cardNumber" name="cardNumber" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="flex space-x-4">
+                    <div class="flex-1">
+                        <label for="expiryDate" class="block text-sm font-medium text-gray-700">Expiry Date</label>
+                        <input type="text" id="expiryDate" name="expiryDate" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="MM/YY">
+                    </div>
+                    <div class="flex-1">
+                        <label for="cvv" class="block text-sm font-medium text-gray-700">CVV</label>
+                        <input type="text" id="cvv" name="cvv" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="123">
+                    </div>
+                </div>
+            </div>
+        `,
+        'paypal': `
+            <div class="space-y-4">
+                <p class="text-gray-600">Click the button below to log in to your PayPal account and complete the payment.</p>
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                    Pay with PayPal
+                </button>
+            </div>
+        `,
+        'bank-transfer': `
+            <div class="space-y-4">
+                <p class="text-gray-600">Please use the following details to make a bank transfer:</p>
+                <div>
+                    <p class="font-medium">Account Name: Example Company</p>
+                    <p class="font-medium">Account Number: 1234567890</p>
+                    <p class="font-medium">Sort Code: 12-34-56</p>
+                    <p class="font-medium">Reference: INV-12345</p>
+                </div>
+            </div>
+        `
+    };
+
+    paymentMethods.addEventListener('click', (e) => {
+        const method = e.target.closest('.payment-method');
+        if (method) {
+            const methodType = method.dataset.method;
+            detailsContent.innerHTML = paymentInfo[methodType];
+            paymentDetails.classList.remove('hidden');
+            
+            // Smooth scroll to payment details on mobile
+            if (window.innerWidth < 640) {
+                paymentDetails.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+</script>
+{%endblock%}
