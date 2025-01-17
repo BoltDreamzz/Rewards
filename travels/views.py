@@ -18,14 +18,23 @@ def index(request):
 
 
 
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import UserProfile, RaffleEntry
+from .forms import RaffleDrawForm
+
 @login_required
 def contact_info(request):
     profile = UserProfile.objects.get(user=request.user)
     if request.method == "POST":
         form = RaffleDrawForm(request.POST)
+
         if form.is_valid():
             try:
-                
                 raffle_entry = RaffleEntry.objects.create(**form.cleaned_data)
                 profile.is_claimed = True
                 profile.save()  # Save the updated profile
@@ -36,26 +45,31 @@ def contact_info(request):
                 message = render_to_string('travels/email_template.html', {'raffle_entry': raffle_entry})
                 
                 # Parse ADMIN_EMAIL into a proper list
-                
+                # recipient_list = [settings.ADMIN_EMAIL]
 
                 # Send email
-                send_mail(
+                email = EmailMessage(
                     subject,
                     message,
                     settings.DEFAULT_FROM_EMAIL,
-                    settings.ADMIN_EMAIL,
-                    fail_silently=False,
+                    settings.ADMIN_EMAIL
                 )
+                email.content_subtype = "html"  # Set the content subtype to HTML
+                email.send(fail_silently=False)
 
                 return redirect('travels:payment_type_form')
             except Exception as e:
                 messages.error(request, 'Something went wrong!')
+                # Optionally log the exception
+                print(e)
         else:
             messages.error(request, 'Sorry fam, try again when retired.')
-            return render(request, 'travels/contact_info.html', {'form': form})
     else:
         form = RaffleDrawForm()
-    return render(request, 'travels/contact_info.html', {'form': form}) 
+        
+    return render(request, 'travels/contact_info.html', {'form': form})
+
+
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import UserProfile, Referral
 from django.contrib.auth.decorators import login_required
