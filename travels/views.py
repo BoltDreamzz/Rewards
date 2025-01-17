@@ -36,14 +36,14 @@ def contact_info(request):
                 message = render_to_string('travels/email_template.html', {'raffle_entry': raffle_entry})
                 
                 # Parse ADMIN_EMAIL into a proper list
-                recipient_list = settings.ADMIN_EMAIL.split(",")
+                
 
                 # Send email
                 send_mail(
                     subject,
                     message,
                     settings.DEFAULT_FROM_EMAIL,
-                    recipient_list,
+                    settings.ADMIN_EMAIL,
                     fail_silently=False,
                 )
 
