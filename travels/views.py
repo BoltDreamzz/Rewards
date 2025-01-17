@@ -2,30 +2,60 @@ from django.shortcuts import render
 from .models import RaffleEntry, Testimonial, PaymentType
 from django.http import HttpResponse
 from django.contrib import messages
-
 from .forms import RaffleDrawForm
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
+
+
 
 # Create your views here.
 def index(request):
     return render(request, 'travels/index.html')
 
+
+
+
+@login_required
 def contact_info(request):
+    profile = UserProfile.objects.get(user=request.user)
     if request.method == "POST":
         form = RaffleDrawForm(request.POST)
         if form.is_valid():
-            RaffleEntry.objects.create(**form.cleaned_data)
-            messages.success(request, 'Thank You! Expect the result.')
-            return redirect('travels:success')
-            # return HttpResponse("Thank you for entering the raffle draw!")
+            try:
+                
+                raffle_entry = RaffleEntry.objects.create(**form.cleaned_data)
+                profile.is_claimed = True
+                profile.save()  # Save the updated profile
+                messages.success(request, 'You can collect reward now.')
+
+                # Render the HTML template with form details
+                subject = 'New Raffle Entry'
+                message = render_to_string('travels/email_template.html', {'raffle_entry': raffle_entry})
+                
+                # Parse ADMIN_EMAIL into a proper list
+                recipient_list = settings.ADMIN_EMAIL.split(",")
+
+                # Send email
+                send_mail(
+                    subject,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    recipient_list,
+                    fail_silently=False,
+                )
+
+                return redirect('travels:payment_type_form')
+            except Exception as e:
+                messages.error(request, 'Something went wrong!')
         else:
-            messages.error(request, 'Something happened, try again.')
+            messages.error(request, 'Sorry fam, try again when retired.')
             return render(request, 'travels/contact_info.html', {'form': form})
     else:
         form = RaffleDrawForm()
-    return render(request, 'travels/contact_info.html', {'form': form})
-    
-    # return render(request, 'travels/contact_info.html')
-    
+    return render(request, 'travels/contact_info.html', {'form': form}) 
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import UserProfile, Referral
 from django.contrib.auth.decorators import login_required
