@@ -28,13 +28,13 @@ SECRET_KEY = 'django-insecure-z1j+9#529(xio6vryn2!8!)x*r0gueei9-4ntrgbn92m*@kwl7
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "rewards-dvwx.onrender.com",
+    "rewards-g9qf.onrender.com",
     "127.0.0.1",
     ]
 
 # ALLOWED_HOSTS = ["127.0.0.1", "mammimart.onrender.com"]
 CSRF_TRUSTED_ORIGINS = [
-    "https://rewards-dvwx.onrender.com",
+    "https://rewards-g9qf.onrender.com",
    
 ]
 
