@@ -104,22 +104,25 @@
         </svg>
 
     </div>
-    <a class="flex justify-center items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="260" height="36" viewBox="0 0 260 36">
-            <g id="Group_32" data-name="Group 32" transform="translate(-89 -564.39)">
-              <g id="Group_29" data-name="Group 29" transform="translate(89 564)">
-                <g id="Rectangle_12" data-name="Rectangle 12" transform="translate(0 0.39)" fill="#8a6400" stroke="#707070" stroke-width="1">
-                  <rect width="260" height="36" rx="18" stroke="none"/>
-                  <rect x="0.5" y="0.5" width="259" height="35" rx="17.5" fill="none"/>
-                </g>
-                <g id="Rectangle_13" data-name="Rectangle 13" transform="translate(0 0.39)" fill="#f8ca0a" stroke="#707070" stroke-width="1">
-                  <rect width="260" height="32" rx="16" stroke="none"/>
-                  <rect x="0.5" y="0.5" width="259" height="31" rx="15.5" fill="none"/>
-                </g>
-              </g>
-              <text id="Earn_4_" data-name="Earn  +4%" transform="translate(215 587.39)" fill="#fff" font-size="18" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="-44.343" y="0" xml:space="preserve">Earn  +4%</tspan></text>
+    <br>
+    <a href="https://myluxuryhomes.org/user/register" target="_blank" class="flex justify-center items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="260" height="36" viewBox="0 0 260 36">
+        <g id="Group_32" data-name="Group 32" transform="translate(-89 -564.39)">
+          <g id="Group_29" data-name="Group 29" transform="translate(89 564)">
+            <g id="Rectangle_12" data-name="Rectangle 12" transform="translate(0 0.39)" fill="#8a6400" stroke="#707070" stroke-width="1">
+              <rect width="260" height="36" rx="18" stroke="none"/>
+              <rect x="0.5" y="0.5" width="259" height="35" rx="17.5" fill="none"/>
             </g>
-          </svg>
+            <g id="Rectangle_13" data-name="Rectangle 13" transform="translate(0 0.39)" fill="#f8ca0a" stroke="#707070" stroke-width="1">
+              <rect width="260" height="32" rx="16" stroke="none"/>
+              <rect x="0.5" y="0.5" width="259" height="31" rx="15.5" fill="none"/>
+            </g>
+          </g>
+          <text id="Earn_3-4_daily" data-name="Earn  +3-4% daily" transform="translate(215 587.39)" fill="#fff" font-size="18" font-family="Poppins-ExtraBold, Poppins" font-weight="800"><tspan x="-80.433" y="0" xml:space="preserve">Earn  +3-4% daily</tspan></text>
+        </g>
+      </svg>
+      
+      
           
     </a>
     <br>
@@ -138,7 +141,8 @@
             <p class="py-4"> Available payment types</p>
             <div class="flex justify-between items-center px-3 my-2">
                 {%for p in payment_types%}
-                <a href="{%url 'travels:payment_detail' p.id%}" class="btn rounded-xl">{{p.name}}</a>
+                <a href="{%url 'travels:payment_detail' p.id%}" class="btn 
+                btn-{{p.color}} rounded-xl">{{p.name}}</a>
                 {%endfor%}
             </div>
             <div class="modal-action">
